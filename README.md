@@ -4,7 +4,7 @@
 This is a school project which make use of web application that utilizes a SQLite database to store user information. Follow the instructions below to set up and run the project.
 
 ## Prerequisites
-- Python 3.x
+- Python 3
 - SQLite
 
 ## Installation
