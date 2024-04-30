@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JPJC Candy Lab</title>
+</head>
+<header>
+    <a href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
+    {% if mem_id %}
+        {{ mem_id }} <a href="/logout">logout</a>
+    {% else %}
+        <a href="/login">login</a> <a href="/register">register</a>
+    {% endif %}
+</header>
+
+<body>
+    <h1>Receipt</h1>
+    <div>
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+            </tr>
+            {% for inv in invs %}
+                <tr>
+                    <td>{{ inv[1] }}</td>
+                    <td>${{ "%.2f"|format(inv[2]) }}</td>
+                    <td>{{ inv[4] }}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">Subtotal</td>
+                    <td>${{ "%.2f"|format(inv[5]) }}</td>
+                </tr>
+            {% endfor %}
+
+            {% if mem_id %}
+                <tr>
+                    <td colspan="2">10% Member Discount</td>
+                    <td>${{ "%.2f"|format(total/9) }}</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td colspan="2">Total</td>
+                <td>${{ "%.2f"|format(total) }}</td>
+            </tr>
+        </table>
+    </div>
+    
+</body>
+</html>

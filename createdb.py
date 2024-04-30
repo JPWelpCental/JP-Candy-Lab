@@ -107,11 +107,11 @@ def insert_trans_log(customer_name, date, order_desc, is_member, total_payable):
     conn.close()
 
 # Function to update records in inv table
-def update_inv(item_id, item_name, description, price, avail_qty, img_filename):
+def update_inv(item_id,avail_qty):
     conn = sqlite3.connect('JPCandyLab.db')
     c = conn.cursor()
-    c.execute('''UPDATE inv SET item_name = ?, description = ?, price = ?, avail_qty = ?, img_filename = ?
-                    WHERE item_id = ?''', (item_name, description, price, avail_qty, img_filename, item_id))
+    c.execute('''UPDATE inv SET avail_qty = ?
+                    WHERE item_id = ?''', (avail_qty, item_id))
     conn.commit()
     conn.close()
 

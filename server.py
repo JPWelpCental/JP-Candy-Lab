@@ -31,21 +31,26 @@ def checkout():
     total = float(total)*0.9 if 'mem_id' in session else float(total)
 
     if 'mem_id' in session:
-        return render_template('checkout.html', invs=invs, total=total, mem_id=session['mem_id'])
+        return render_template('checkout.html',qty=qty , invs=invs, total=total, mem_id=session['mem_id'])
     else:
-        return render_template('checkout.html', invs=invs, total=total)
+        return render_template('checkout.html',qty=qty , invs=invs, total=total)
 
 @app.route('/receipt', methods=['POST'])
 def receipt():
-    invs = request.form.get('invs')
+    qty = request.form.get('qty')
+    qty = ast.literal_eval(qty)
 
     mem_id = session['mem_id'] if 'mem_id' in session else "Guest"
     is_member = True if 'mem_id' in session else False
     today = date.today()
-    invs = ast.literal_eval(invs)
-    desc = ", ".join([f"{inv[0]}, {inv[2]}" for inv in invs])
-    total = sum([inv[3] for inv in invs])
+    invs = get_inv()
+    invs = [(invs[i][0], invs[i][1], float(invs[i][3]), int(invs[i][4]), int(qty[i]), invs[i][3]*int(qty[i])) for i in range(len(invs)) if int(qty[i]) > 0]
+    desc = ", ".join([f"{inv[1]}, {inv[4]}" for inv in invs])
+    total = sum([inv[5] for inv in invs])
     total = float(total)*0.9 if is_member else float(total)
+
+    for inv in invs:
+        update_inv(inv[0], inv[3]-inv[4])
 
     insert_trans_log(mem_id, today, desc, is_member, total)
 
