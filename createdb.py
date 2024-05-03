@@ -5,8 +5,8 @@ import os
 +-----------------+       +-----------------+       +-----------------+
 |       inv       |       |       mem       |       |    trans_log    |
 +-----------------+       +-----------------+       +-----------------+
-| item_id (PK)    |       | mem_id (PK)     |       | order_id (PK)   |
-| item_name       |       | email (Unique)  |       | customer_name   |
+| item_id (PK)    |       | mem_id          |       | order_id (PK)   |
+| item_name       |       | email (PK)      |       | customer_name   |
 | desc            |       | pw              |       | date            |
 | price           |       |                 |       | order_desc      |
 | avail_qty       |       |                 |       | is_member       |
@@ -32,8 +32,8 @@ def create_tables():
 
     # Create mem table
     c.execute('''CREATE TABLE IF NOT EXISTS mem (
-                    mem_id TEXT PRIMARY KEY,
-                    email TEXT UNIQUE,
+                    mem_id TEXT,
+                    email TEXT PRIMARY KEY,
                     pw TEXT
                 )''')
 
