@@ -55,7 +55,7 @@ def init_inv():
     conn = sqlite3.connect('JPCandyLab.db')
     c = conn.cursor()
 
-    with open('txts/inventory.txt', 'r') as file:
+    with open('text+instructions/inventory.txt', 'r') as file:
         for line in file:
             item_id, item_name, description, price, avail_qty, img_filename = line.strip().split(',')
             c.execute('''INSERT INTO inv (item_id, item_name, description, price, avail_qty, img_filename)
@@ -69,7 +69,7 @@ def init_mem():
     conn = sqlite3.connect('JPCandyLab.db')
     c = conn.cursor()
 
-    with open('txts/member.txt', 'r') as file:
+    with open('text+instructions/member.txt', 'r') as file:
         next(file)  # Skip the first line
         for line in file:
             mem_id, email, pw = line.strip().split(',')
