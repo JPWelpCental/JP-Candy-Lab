@@ -2,15 +2,16 @@ import sqlite3
 import os
 
 """
+Part A
 +-----------------+       +-----------------+       +-----------------+
-|       inv       |       |       mem       |       |    trans_log    |
+|       inv       |       |    trans_log    |       |       mem       |
 +-----------------+       +-----------------+       +-----------------+
-| item_id (PK)    |       | mem_id          |       | order_id (PK)   |
-| item_name       |       | email (PK)      |       | customer_name   |
-| desc            |       | pw              |       | date            |
-| price           |       |                 |       | order_desc      |
-| avail_qty       |       |                 |       | is_member       |
-| img_filename    |       |                 |       | total_payable   |
+| item_id (PK)    |      /| order_id (PK)   |\      | mem_id          |
+| item_name       |     / | customer_name   | \     | email (PK)      |
+| desc            |-------| date            |-------| pw              |
+| price           |     \ | order_desc      | /     |                 |
+| avail_qty       |      \| is_member       |/      |                 |
+| img_filename    |       | total_payable   |       |                 |
 +-----------------+       +-----------------+       +-----------------+
 
 """
@@ -132,14 +133,6 @@ def get_mem(email, pw):
     mem = c.fetchone()
     conn.close()
     return mem
-
-# Function to get all records from trans_log table
-def get_trans_log():
-    conn = sqlite3.connect('JPCandyLab.db')
-    c = conn.cursor()
-    
-
-
 
 def main():
     if os.path.exists('JPCandyLab.db'):
