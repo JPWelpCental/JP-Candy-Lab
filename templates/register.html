@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/register.css">
     <title>JPJC Candy Lab</title>
 </head>
-<header>
-    <a href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
-</header>
 
 <body>
-    <h1>Register Page</h1>
-    {% if error %}
-        <p style="color: red;">{{ error }}</p>
-    {% endif %}
-    <form action="/register" method="post">
-        <label for="userame">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">register</button>
-    </form>
-    
+    <div class="register">
+        <div class="register_header">
+            <a href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
+            <p class="register_title">Sign up</p>
+        </div>
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        <form action="/register" method="post">
+            <div class="inputBx">
+                <input type="username" placeholder="Username" id="username" name="username" required>
+            </div>
+            <div class="inputBx">
+                <input type="email" placeholder="Email" id="email" name="email" required>
+            </div>
+            <div class="inputBx">
+                <input type="password" placeholder="Password" id="password" name="password" required>
+            </div>
+            <div class="inputBx">
+                <button type="submit">Sign up</button>
+            </div>
+            <p class="message">Already have an account? <a href="/login">Sign in here</a></p>
+        </form>
+    </div>
 </body>
 </html>

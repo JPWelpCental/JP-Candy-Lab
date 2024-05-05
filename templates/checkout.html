@@ -3,63 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\css\checkout.css">
     <title>JPJC Candy Lab</title>
 </head>
-<header>
-    <a href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
-    {% if mem_id %}
-        {{ mem_id }} <a href="/logout">logout</a>
-    {% else %}
-        <a href="/login">login</a> <a href="/register">register</a>
-    {% endif %}
-</header>
 
 <body>
-    <h1>Order Confirmation Page</h1>
-    
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Unit Price</th>
-            <th>Quantity</th>
-        </tr>
-        {% for inv in invs %}
-            <tr>
-                <td>{{ inv[0] }}</td>
-                <td>${{ "%.2f"|format(inv[1]) }}</td>
-                <td>{{ inv[2] }}</td>
-            </tr>
-            <tr>
-                <td colspan="2">Subtotal</td>
-                <td>${{ "%.2f"|format(inv[3]) }}</td>
-            </tr>
-        {% endfor %}
+    <div class="checkout">
+        <div class="checkout_header">
+            <a class="logo" href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
+            <p class="checkout_title">Confirm checkout</p>
+        </div>
 
-        {% if mem_id %}
-                <tr>
-                    <td colspan="2">10% Member Discount</td>
-                    <td>${{ "%.2f"|format(total/9) }}</td>
-                </tr>
-        {% endif %}
-        <tr>
-            <td colspan="2">Total</td>
-            <td>${{ "%.2f"|format(total) }}</td>
-        </tr>
 
-    </table>
+        <dl class="checkout_list">
+            <div class="checkout_row checkout_row_bold">
+                <dt class="checkout_item">Product</dt>
+                <dd class="checkout_cost">Unit Price</dd>
+            </div>
+            {% for inv in invs %}
+                <div class="checkout_row">
+                    <dt class="checkout_item">{{inv[2]}} * {{inv[0]}}</dt>
+                    <dd class="checkout_cost">${{ "%.2f"|format(inv[1]) }}</dd>
+                </div>
+            {% endfor %}
 
-    {% if mem_id %}
-        <input type="hidden" name="mem_id" value="{{ mem_id }}">
-    {% else %}
-        <p>You are not sign in! <a href="/login">login</a> to enjoy a 10% discount</p>
+            
+            
+            {% if mem_id %}
+            <div class="checkout_row checkout_row_total">
+                <dt class="checkout_item">Subtotal</dt>
+                <dd class="checkout_cost">${{ "%.2f"|format(total/9*10) }}</dd>
+            </div>
+            <div class="checkout_row ">
+                <dt colspan="2">10% Member Discount</dt>
+                <dd>${{ "%.2f"|format(total/9) }}</dd>
+            </div>
+            {% else %}
+            <div class="checkout_row checkout_row_total">
+                <dt colspan="2">Total</dt>
+                <dd>${{ "%.2f"|format(total) }}</dd>
+            </div>
+
+            <p class="message">You are not sign in! <a href="/login">Login here</a> to enjoy 10% off</p>
+            
+            {% endif %}
+        </dl>
         
-    {% endif %}
-
-    <form action="/receipt" method="post">
-        <input type="hidden" name="qty" value="{{ qty }}">
-        <button type="submit">Confirm Order</button>
-    </form>
-   
+        <form action="/receipt" method="post">
+            <input type="hidden" name="qty" value="{{ qty }}">
+            <button type="submit">Confirm Order</button>
+        </form>
     
+
+    </div>
 </body>
 </html>

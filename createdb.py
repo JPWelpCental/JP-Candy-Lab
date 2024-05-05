@@ -142,7 +142,8 @@ def get_trans_log():
 
 
 def main():
-    os.remove('JPCandyLab.db')
+    if os.path.exists('JPCandyLab.db'):
+        os.remove('JPCandyLab.db')
     create_tables()
     init_inv()
     init_mem()

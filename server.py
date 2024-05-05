@@ -55,9 +55,9 @@ def receipt():
     insert_trans_log(mem_id, today, desc, is_member, total)
 
     if 'mem_id' in session:
-        return render_template('receipt.html', invs=invs, total=total, mem_id=mem_id)
+        return render_template('receipt.html', invs=invs, total=total, mem_id=mem_id,date=today)
     else:
-        return render_template('receipt.html', invs=invs, total=total)
+        return render_template('receipt.html', invs=invs, total=total,date=today)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

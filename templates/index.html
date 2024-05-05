@@ -7,31 +7,35 @@
     <title>JPJC Candy Lab</title>
 </head>
 <header>
-    <a href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
-    {% if mem_id %}
-        {{ mem_id }} <a href="/logout">logout</a>
-    {% else %}
-        <a href="/login">login</a> <a href="/register">register</a>
-    {% endif %}
+    <a class="logo" href="/"><img src="static\img\JPJC_CandyLab_Logo.JPG" alt="LOGO"></a>
+    <ul class="member">
+        {% if mem_id %}
+            <li><b>{{ mem_id }}</b></li>
+            <li><a href="/logout">Logout</a></li>
+        {% else %}
+            <li><a href="/login">Login</a></li>
+            <li><a href="/register">Register</a></li>
+        {% endif %}
+    </ul>
 </header>
-
 <body>
-    <h1>Order Page</h1>
-    
     <form action="/checkout" method="post">
-        <div class="grid-container">
+
+        <div class="card-grid">
             {% for inv in invs %}
-                <div class="grid-item">
-                    <img src="static\img\{{ inv[5] }}" alt="Product Image">
-                    <h3>{{ inv[1] }}</h3>
-                    <p>{{ inv[2] }}</p>
-                    <p>Price: ${{ "%.2f"|format(inv[3]) }}</p>
-                    <input type="number" name="quantity" min="0" max="{{ inv[4] }}" value="0">
+                <div class="card-style">
+                    <img class="image-style" src="static\img\{{ inv[5] }}" alt="Product Image">
+                    <div class="card-content">
+                        <h3>{{ inv[1] }}</h3>
+                        <p>{{ inv[2] }}</p>
+                        <p>Price: ${{ "%.2f"|format(inv[3]) }}</p>
+                        <input type="number" name="quantity" min="0" max="{{ inv[4] }}" value="0">
+                    </div>
                 </div>
             {% endfor %}
         </div>
         <button type="submit">Place Order</button>
+
     </form>
-    
 </body>
 </html>
